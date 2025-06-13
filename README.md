@@ -137,10 +137,10 @@ Below are some of the test cases in each category, there is scope for more test 
 1. Pass invalid nonce as part of "message"
 2. Pass invalid "signature"
 3. Do not pass any params value
-4. Do not pass mandatory params value, i.e. Username
+4. Do not pass mandatory params value, i.e. username
 5. Do not pass mandatory params value, i.e. message
 6. Do not pass mandatory params value, i.e. signature
-7. Pass duplicate/existing value for Username
+7. Pass duplicate/existing value for username
 8. Pass duplicate/existing value for message and signature
 9. Pass number instead of string in params
 10. Length validation: Pass 1000 chars in params
@@ -154,8 +154,8 @@ Below are some of the test cases in each category, there is scope for more test 
 **Positive**
 
 1. Pass all "message", "signature" field correct valid value
-2. Verify in response token
-3. Verify all API status codes - 200, 201, 401, 500 etc
+2. Verify token in responses
+3. Verify all relevant API status codes (e.g., 200, 201, 401, 500, etc.)
 
 **Negative**
 
@@ -197,14 +197,15 @@ It covers two endpoints: Signup & Login
 
 1. Install k6 at the root level of the project, [refer] (https://grafana.com/docs/k6/latest/set-up/install-k6/)
 2. For the `signup` endpoint, run:
-    ```bash
-    k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_signup.js
-    ```
+   ```bash
+   k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_signup.js
+   ```
 3. For the `login` endpoint, run:
-    ```bash
-    k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_login.js
-    ```
+   ```bash
+   k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_login.js
+   ```
 4. Re-run the test script, making changes in parameterss to meet the desire throughput.
+
 
 **Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe**
 
