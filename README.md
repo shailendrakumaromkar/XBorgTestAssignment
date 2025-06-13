@@ -72,22 +72,25 @@ $ yarn format
 
 ## Submission Documentation...
 
-I will be honest here, I didn't got opportunity to learn, work or write tests in Nest JS using Monorepo,
+I will be honest here, I didn't got opportunity to work or write tests in Nest JS using Monorepo,  
 I could have used chatgpt, github co-pilot in writing and submitting this assignment, but that's not correct way.
 
 But I am very strong in API testing, especially in e2e testing
-Below are some of the test cases in each category
 
-**Unit Tests**: mocking all below cases
-`user.service.ts` : Test the logic of UserService in isolation, mocking dependencies, no DB involved.
+Below are some of the test cases in each category, there are scope of more test cases as well to cover-
+
+**Unit Tests**: mocking all below cases  
+`user.service.ts` : Test the logic of UserService in isolation, mocking dependencies, no DB involved.  
 `UserRepository.create`
 
 **Positive**
+
 1. Pass all params valid value, in proper format, in proper length
 2. Verify the registration log message "Registering new user with address"
 3. Verify it returns created user
 
 **Negative**
+
 1. Do not pass any params value
 2. Do not pass mandatory params value, i.e. Username
 3. Do not pass mandatory params value, i.e. address
@@ -102,6 +105,7 @@ Below are some of the test cases in each category
 **Integration Tests** : Test `UserService` together with `UserRepository` using a test database or in-memory DB
 
 **Positive**
+
 1. Pass all params valid value, in proper format, in proper length
 2. User & Profile are created and stored in DB
 3. Pass duplicate/existing value, i.e. User exists Error
@@ -109,24 +113,27 @@ Below are some of the test cases in each category
 5. Verify in DB all field values are retrievable and can be successfully queried
 
 **Negative**
+
 1. Create user with missing required fields
 2. Create user giving invalid data types
 3. Make DB down/inaccessible permanently and try creating user
 4. Retry login: make DB down/inaccessible temporarily and try creating user
 5. Find user with non-existing ID
 6. Try to create user giving length exceeding data type
-7. Special chars: Pass special chars value (e.g. ~!@#$%^&*()_+{}":?><|`,./;'[]\=-)
+7. Special chars: Pass special chars value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
 
 **E2E (End-to-End) API Tests** : full API flow, from HTTP request to database.
 
-POST http://localhost:8080/v1/user/signup
+- POST http://localhost:8080/v1/user/signup
 
 **Positive**
+
 1. Pass all field correct valid value
 2. Verify in response token
 3. Verify all API status codes - 200, 201, 401, 500 etc
 
 **Negative**
+
 1. Pass invalid nonce as part of "message"
 2. Pass invalid "signature"
 3. Do not pass any params value
@@ -137,47 +144,73 @@ POST http://localhost:8080/v1/user/signup
 8. Pass duplicate/existing value for message and signature
 9. Pass number instead of string in params
 10. Length validation: Pass 1000 chars in params
-11. Special chars: Pass special chars value (e.g. ~!@#$%^&*()_+{}":?><|`,./;'[]\=-)
+11. Special chars: Pass special chars value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
 12. Pass empty/blank/undefined value
 13. Pass value in double quotes (e.g. "usernameindoublequote")
 14. In email params, do not pass domain (e.g. testemail, i.e. without @gmail.com)
 
-**E2E (End-to-End) UI (client) Tests**: full application flow from end user perspective.
+- POST http://localhost:8080/v1/user/login
+
+**Positive**
+
+1. Pass all "message", "signature" field correct valid value
+2. Verify in response token
+3. Verify all API status codes - 200, 201, 401, 500 etc
+
+**Negative**
+
+1. Pass invalid nonce as part of "message"
+2. Pass invalid "signature"
+3. Do not pass any params value
+4. Do not pass mandatory params value, i.e. message
+5. Do not pass mandatory params value, i.e. signature
+6. Pass duplicate/existing value for "message" and "signature"
+7. Pass wrong value format in "message" and "signature"
+8. Pass tampered value in "message"
+9. Pass tampered value in "signature"
+10. Pass empty/blank/undefined value
+
+**E2E (End-to-End) UI (client) Tests**: full application flow from end user perspective.  
+It covers 2 test cases - Signup & Login
 
 1. Navigate to `apps/client`
-2. Install Playwright  
+2. Install Playwright
    ```bash
    yarn create playwright
    ```
 3. Create a `.env` file
 4. Enter the following data as per your wallet:
-    - seed phrase
-    - password
+   - seed phrase
+   - password
 5. Copy and paste the Metamask extension folder content from the source to the destination location:
-    - **Source:** `C:/Users/CWB/AppData/Local/Google/Chrome/User Data/Default/Extensions/nkbihfbeogaeaoehlefnkodbefgpgknn/12.18.3_0`
-    - **Destination:** `apps/client/tests/Metamask`
+   - **Source:** `C:/Users/TestUser/AppData/Local/Google/Chrome/User Data/Default/Extensions/{Metamask Extension Folder Name}/{Metamask Extension version}`
+   - **Destination:** `apps/client/tests/Metamask`
 6. Navigate to `apps/client/tests/xborg-e2e.spec.ts`
-7. Run the command:  
+7. Run the command:
+
    ```bash
    npx playwright test
    ```
 
-**Testing Performance benchmarks**
-1. Install k6 at the root level of the project  
-2. Refer to the documentation: https://grafana.com/docs/k6/latest/set-up/install-k6/
-3. For the signup endpoint, run:  
-   ```bash
-   k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_signup.js
-   ```
-4. For the login endpoint, run:  
-   ```bash
-   k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_login.js
-   ```
-5. Re-run test script making changes in params to meet desired throughput.
+   **Testing Performance benchmarks**  
+   It covers 2 endpoints - Signup & Login
+
+8. Install k6 at the root level of the project
+9. Refer to the documentation: https://grafana.com/docs/k6/latest/set-up/install-k6/
+10. For the signup endpoint, run:
+    ```bash
+    k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_signup.js
+    ```
+11. For the login endpoint, run:
+    ```bash
+    k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_login.js
+    ```
+12. Re-run test script making changes in params to meet desired throughput.
 
 **Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe**
+
 - Unit Test: Test each method with all positive, negative combination test cases by mocking without DB interaction.
 - Integration Test: Test each method with all positive, negative combination test cases combining with DB.
 - E2E: Test all API, Frontend including all components, just like end user uses our product.
-- Automation: Create automation test scripts to cover E2E end user flows.
+- Automation: Create automation test scripts to cover E2E end user flows to catch any regression issues before releasing to production.
 - Performance: Run load test to meet Acceptance Criteria, Benchmark defined for expected Throughput, ensuring Infrastructure resources - RAM, CPU, Network are within control, application - pods, containers are not crashing.
