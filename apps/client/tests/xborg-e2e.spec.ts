@@ -14,7 +14,8 @@ let extensionPage: Page;
 
 test.beforeAll(async () => {
   // Clean up user data dir for a fresh start (optional)
-  if (fs.existsSync(userDataDir)) fs.rmSync(userDataDir, { recursive: true, force: true });
+  if (fs.existsSync(userDataDir))
+    fs.rmSync(userDataDir, { recursive: true, force: true });
 
   // Launch browser with MetaMask extension
   context = await chromium.launchPersistentContext(userDataDir, {
@@ -29,43 +30,79 @@ test.beforeAll(async () => {
   let page: Page | undefined;
   while (!page) {
     const pages = context.pages();
-    page = pages.find(p => p.url().startsWith('chrome-extension://'));
-    if (!page) await new Promise(res => setTimeout(res, 500));
+    page = pages.find((p) => p.url().startsWith('chrome-extension://'));
+    if (!page) await new Promise((res) => setTimeout(res, 500));
   }
   extensionPage = page;
 
   // Onboarding: Import wallet using seed phrase
-  await extensionPage.goto('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#unlock');
+  await extensionPage.goto(
+    'chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#unlock'
+  );
   await extensionPage.bringToFront();
 
-  await extensionPage.locator("#onboarding__terms-checkbox").click();
-  await extensionPage.locator("button[data-testid='onboarding-import-wallet']").click();
-  await extensionPage.locator("button[data-testid='metametrics-i-agree']").click();
+  await extensionPage.locator('#onboarding__terms-checkbox').click();
+  await extensionPage
+    .locator("button[data-testid='onboarding-import-wallet']")
+    .click();
+  await extensionPage
+    .locator("button[data-testid='metametrics-i-agree']")
+    .click();
 
   // Enter seed phrase
   const seedPhrase = process.env.SEED_PHRASE_METAMASK?.split(' ') ?? [];
   const seedInputBox = extensionPage.locator('.import-srp__srp');
   for (let i = 0; i < seedPhrase.length; i++) {
-    await seedInputBox.locator(`input[data-testid ='import-srp__srp-word-${i}']`).fill(seedPhrase[i]);
+    await seedInputBox
+      .locator(`input[data-testid ='import-srp__srp-word-${i}']`)
+      .fill(seedPhrase[i]);
   }
 
   // Setup password and complete onboarding
-  await extensionPage.locator("button[data-testid='import-srp-confirm']").click();
-  await extensionPage.locator("input[data-testid='create-password-new']").fill(process.env.PASSWORD_METAMASK || '');
-  await extensionPage.locator("input[data-testid='create-password-confirm']").fill(process.env.PASSWORD_METAMASK || '');
-  await extensionPage.locator("input[data-testid='create-password-terms']").click();
-  await extensionPage.locator("button[data-testid='create-password-import']").click();
-  await extensionPage.locator("button[data-testid='onboarding-complete-done']").click();
-  await extensionPage.locator("button[data-testid='pin-extension-next']").click();
-  await extensionPage.locator("button[data-testid='pin-extension-done']").click();
+  await extensionPage
+    .locator("button[data-testid='import-srp-confirm']")
+    .click();
+  await extensionPage
+    .locator("input[data-testid='create-password-new']")
+    .fill(process.env.PASSWORD_METAMASK || '');
+  await extensionPage
+    .locator("input[data-testid='create-password-confirm']")
+    .fill(process.env.PASSWORD_METAMASK || '');
+  await extensionPage
+    .locator("input[data-testid='create-password-terms']")
+    .click();
+  await extensionPage
+    .locator("button[data-testid='create-password-import']")
+    .click();
+  await extensionPage
+    .locator("button[data-testid='onboarding-complete-done']")
+    .click();
+  await extensionPage
+    .locator("button[data-testid='pin-extension-next']")
+    .click();
+  await extensionPage
+    .locator("button[data-testid='pin-extension-done']")
+    .click();
 
   // Add a new account for testing purpose, we can skip in case we want to use the default account - Account 1
-  await extensionPage.locator("button[data-testid='account-options-menu-button']").click();
-  await extensionPage.locator(".multichain-account-picker__label").click();
+  await extensionPage
+    .locator("button[data-testid='account-options-menu-button']")
+    .click();
+  await extensionPage.locator('.multichain-account-picker__label').click();
 
-  await extensionPage.locator("button[data-testid='multichain-account-menu-popover-action-button']").click();
-  await extensionPage.locator("button[data-testid='multichain-account-menu-popover-add-account']").click();
-  await extensionPage.locator("button[data-testid='submit-add-account-with-name']").click();
+  await extensionPage
+    .locator(
+      "button[data-testid='multichain-account-menu-popover-action-button']"
+    )
+    .click();
+  await extensionPage
+    .locator(
+      "button[data-testid='multichain-account-menu-popover-add-account']"
+    )
+    .click();
+  await extensionPage
+    .locator("button[data-testid='submit-add-account-with-name']")
+    .click();
 });
 
 test('SignUp XBorg App', async () => {
@@ -142,5 +179,6 @@ test('Login XBorg App for existing user', async () => {
 // Cleanup after tests
 test.afterAll(async () => {
   await context.close();
-  if (fs.existsSync(userDataDir)) fs.rmSync(userDataDir, { recursive: true, force: true });
+  if (fs.existsSync(userDataDir))
+    fs.rmSync(userDataDir, { recursive: true, force: true });
 });
