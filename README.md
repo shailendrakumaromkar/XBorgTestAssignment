@@ -72,8 +72,8 @@ $ yarn format
 
 ## Submission Documentation...
 
-I will be honest here, I didn't get opportunity to work or write tests in Nest JS using Monorepo,  
-I could have used Chatgpt, Github Copilot in writing and submitting this assignment, but that's not the correct way.
+I will be honest here, I didn't get the opportunity to work or write tests in Nest JS using Monorepo,  
+I could have used ChatGPT, GitHub Copilot in writing and submitting this assignment, but that's not the correct way.
 
 But I am very strong in API testing, especially in e2e testing
 
@@ -85,9 +85,9 @@ Below are some of the test cases in each category, there is scope for more test 
 
 **Positive**
 
-1. Pass all params valid value, in proper format, in proper length
+1. Pass all params with valid value, in proper format and proper length
 2. Verify the registration log message "Registering new user with address"
-3. Verify it returns created user
+3. Verify it returns the created user
 
 **Negative**
 
@@ -97,30 +97,30 @@ Below are some of the test cases in each category, there is scope for more test 
 4. Pass number instead of string in params
 5. Length validation: Pass 1000 chars in params
 6. Special chars: Pass special chars value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
-7. Pass duplicate/existing value, i.e. User exists Error
+7. Pass duplicate/existing value, i.e., User exists Error
 8. Pass empty/blank/undefined value
-9. Pass value in double quotes (e.g. "usernameindoublequote")
-10. In email params, do not pass domain (e.g. testemail, i.e. without @gmail.com)
+9. Pass value in double quotes (e.g., "usernameindoublequote")
+10. In email params, do not pass domain (e.g. testemail, i.e., without @gmail.com)
 
 **Integration Tests** : Test `UserService` together with `UserRepository` using a test database or in-memory DB
 
 **Positive**
 
 1. Pass all params valid value, in proper format, in proper length
-2. User & Profile are created and stored in DB
+2. User & Profile are created and stored in the DB
 3. Pass duplicate/existing value, i.e. User exists Error
-4. Verify in DB all fields with correct data types are saved
-5. Verify in DB all field values are retrievable and can be successfully queried
+4. Verify in the DB that all field values with correct data types are saved
+5. Verify in the DB that all field values are retrievable and can be successfully queried
 
 **Negative**
 
 1. Create user with missing required fields
 2. Create user giving invalid data types
 3. Make the DB down/inaccessible permanently and try creating user
-4. Retry logic: make DB down/inaccessible temporarily and try creating user
+4. Retry logic: Make DB down/inaccessible temporarily and try creating user
 5. Find user with non-existing ID
-6. Try to create user with data exceeding allowed length
-7. Special chars: Pass special characters value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
+6. Try to create a user with data exceeding allowed length
+7. Special chars: Pass special characters values (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
 
 **E2E (End-to-End) API Tests** : full API flow, from HTTP request to database.
 
@@ -128,7 +128,7 @@ Below are some of the test cases in each category, there is scope for more test 
 
 **Positive**
 
-1. Pass all field with correct valid values
+1. Pass all fields with correct valid values
 2. Verify token in response
 3. Verify all relevant API status codes (e.g., 200, 201, 401, 500, etc.)
 
@@ -153,8 +153,8 @@ Below are some of the test cases in each category, there is scope for more test 
 
 **Positive**
 
-1. Pass all "message", "signature" field correct valid value
-2. Verify token in responses
+1. Pass all "message", "signature" field with correct valid values
+2. Verify token in response
 3. Verify all relevant API status codes (e.g., 200, 201, 401, 500, etc.)
 
 **Negative**
@@ -170,7 +170,7 @@ Below are some of the test cases in each category, there is scope for more test 
 9. Pass tampered value in "signature"
 10. Pass empty/blank/undefined value
 
-**E2E (End-to-End) UI (client) Tests**: full application flow from end user perspective.  
+**E2E (End-to-End) UI (client) Tests**: full application flow from an end user perspective.  
 It covers two test cases: Signup & Login
 
 1. Navigate to `apps/client`
@@ -209,8 +209,8 @@ It covers two endpoints: Signup & Login
 
 **Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe**
 
-- Unit Test: Test each method with all positive, negative combination test cases by mocking without DB interaction.
-- Integration Test: Test each method with all positive, negative combination test cases together with DB.
-- E2E: Test all API, Frontend part including all components, just like an end user uses our product.
-- Automation: Create automation test scripts to cover E2E end user flows to catch any regression issues before releasing to production.
-- Performance: Run load test to meet Acceptance Criteria, Benchmark defined for expected throughput, ensuring tnfrastructure resources (RAM, CPU, Network) are within configured limits and application pods/containers are stable.
+- **Unit Test:** Test each method with all positive and negative test cases by mocking, without DB interaction.
+- **Integration Test:** Test each method with all positive and negative test cases together with the DB.
+- **E2E:** Test all API and frontend parts, including all components, just like an end user would use the product.
+- **Automation:** Create automation test scripts to cover E2E end-user flows to catch any regression issues before releasing to production.
+- **Performance:** Run load tests to meet Acceptance Criteria, with benchmarks defined for expected throughput, ensuring infrastructure resources (RAM, CPU, Network) are within configured limits and application pods/containers are stable.
