@@ -72,12 +72,12 @@ $ yarn format
 
 ## Submission Documentation...
 
-I will be honest here, I didn't got opportunity to work or write tests in Nest JS using Monorepo,  
-I could have used chatgpt, github co-pilot in writing and submitting this assignment, but that's not correct way.
+I will be honest here, I didn't get opportunity to work or write tests in Nest JS using Monorepo,  
+I could have used Chatgpt, Github Copilot in writing and submitting this assignment, but that's not the correct way.
 
 But I am very strong in API testing, especially in e2e testing
 
-Below are some of the test cases in each category, there are scope of more test cases as well to cover-
+Below are some of the test cases in each category, there is scope for more test cases as well to cover-
 
 **Unit Tests**: mocking all below cases  
 `user.service.ts` : Test the logic of UserService in isolation, mocking dependencies, no DB involved.  
@@ -116,11 +116,11 @@ Below are some of the test cases in each category, there are scope of more test 
 
 1. Create user with missing required fields
 2. Create user giving invalid data types
-3. Make DB down/inaccessible permanently and try creating user
-4. Retry login: make DB down/inaccessible temporarily and try creating user
+3. Make the DB down/inaccessible permanently and try creating user
+4. Retry logic: make DB down/inaccessible temporarily and try creating user
 5. Find user with non-existing ID
-6. Try to create user giving length exceeding data type
-7. Special chars: Pass special chars value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
+6. Try to create user with data exceeding allowed length
+7. Special chars: Pass special characters value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
 
 **E2E (End-to-End) API Tests** : full API flow, from HTTP request to database.
 
@@ -128,9 +128,9 @@ Below are some of the test cases in each category, there are scope of more test 
 
 **Positive**
 
-1. Pass all field correct valid value
-2. Verify in response token
-3. Verify all API status codes - 200, 201, 401, 500 etc
+1. Pass all field with correct valid values
+2. Verify token in response
+3. Verify all relevant API status codes (e.g., 200, 201, 401, 500, etc.)
 
 **Negative**
 
@@ -146,7 +146,7 @@ Below are some of the test cases in each category, there are scope of more test 
 10. Length validation: Pass 1000 chars in params
 11. Special chars: Pass special chars value (e.g. ~!@#$%^&\*()\_+{}":?><|`,./;'[]\=-)
 12. Pass empty/blank/undefined value
-13. Pass value in double quotes (e.g. "usernameindoublequote")
+13. Pass value in double quotes (e.g., "usernameInDoubleQuotes")
 14. In email params, do not pass domain (e.g. testemail, i.e. without @gmail.com)
 
 - POST http://localhost:8080/v1/user/login
@@ -171,7 +171,7 @@ Below are some of the test cases in each category, there are scope of more test 
 10. Pass empty/blank/undefined value
 
 **E2E (End-to-End) UI (client) Tests**: full application flow from end user perspective.  
-It covers 2 test cases - Signup & Login
+It covers two test cases: Signup & Login
 
 1. Navigate to `apps/client`
 2. Install Playwright
@@ -192,25 +192,24 @@ It covers 2 test cases - Signup & Login
    npx playwright test
    ```
 
-   **Testing Performance benchmarks**  
-   It covers 2 endpoints - Signup & Login
+**Testing Performance benchmarks**  
+It covers two endpoints: Signup & Login
 
-8. Install k6 at the root level of the project
-9. Refer to the documentation: https://grafana.com/docs/k6/latest/set-up/install-k6/
-10. For the signup endpoint, run:
+1. Install k6 at the root level of the project, [refer] (https://grafana.com/docs/k6/latest/set-up/install-k6/)
+2. For the `signup` endpoint, run:
     ```bash
     k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_signup.js
     ```
-11. For the login endpoint, run:
+3. For the `login` endpoint, run:
     ```bash
     k6 run -e RATE=100 -e DURATION=300 -e PREALLOCATEDVUS=1000 XBorg_login.js
     ```
-12. Re-run test script making changes in params to meet desired throughput.
+4. Re-run the test script, making changes in parameterss to meet the desire throughput.
 
 **Clearly document strategies via effective testing and in the Submission Documentation section of the ReadMe**
 
 - Unit Test: Test each method with all positive, negative combination test cases by mocking without DB interaction.
-- Integration Test: Test each method with all positive, negative combination test cases combining with DB.
-- E2E: Test all API, Frontend including all components, just like end user uses our product.
+- Integration Test: Test each method with all positive, negative combination test cases together with DB.
+- E2E: Test all API, Frontend part including all components, just like an end user uses our product.
 - Automation: Create automation test scripts to cover E2E end user flows to catch any regression issues before releasing to production.
-- Performance: Run load test to meet Acceptance Criteria, Benchmark defined for expected Throughput, ensuring Infrastructure resources - RAM, CPU, Network are within control, application - pods, containers are not crashing.
+- Performance: Run load test to meet Acceptance Criteria, Benchmark defined for expected throughput, ensuring tnfrastructure resources (RAM, CPU, Network) are within configured limits and application pods/containers are stable.
