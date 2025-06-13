@@ -1,0 +1,10 @@
+[
+    {
+        "email": "XBorgUser1@gmail.com",
+        "firstName": "XBorgUser1 First Name",
+        "lastName": "XBorgUser1 Last Name",
+        "message": "localhost wants you to sign in with your Ethereum account:\n0x625hf38bD1f1FA946d6aa4466895B3851efcF9A9\n\nSign in with Ethereum to the app.\n\nURI: http://localhost\nVersion: 1\nChain ID: 1\nNonce: 8eSjCrnVljfrbAUYz\nIssued At: 2025-06-13T05:52:26.254Z",
+        "signature": "0xe34ckjhm7618b1ecf5bbf98un257dygbe494b7ebb2723dbvadqewrsvhbfr43mnbg54134tgbcmki8cc68ab4c435f5b150b9poikmn567yg23972e651eccfbb098uhg",
+        "userName": "XBorgUser1"
+    }
+]
